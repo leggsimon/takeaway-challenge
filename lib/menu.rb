@@ -8,7 +8,7 @@ class Menu
 
   def initialize text_sender
 
-    @menu_items = {pizza: 9.99,
+    @menu_items = {pizza: 9.99, # consider injecting in this hash of menu items, rather than having them hardcoded
                   fried_chicken: 4.99,
                   coke: 0.99,
                   beer: 2.89,
@@ -16,7 +16,6 @@ class Menu
                   }
     @selected_items = {}
     @text_sender = text_sender
-
   end
 
   def show
@@ -45,8 +44,12 @@ class Menu
       find_price selected_item
       total_price += (@price * quantity)
     end
-    price = sprintf "%.2f", total_price
-    "£#{price}"
+
+    "£#{format_price(total_price)}"
+  end
+  
+  def format_price(total_price)
+    sprintf "%.2f", total_price
   end
 
   def order phone_number

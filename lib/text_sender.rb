@@ -1,20 +1,21 @@
 require 'twilio-ruby'
-require_relative '../.env.rb'
+require './.env.rb'
 
 class TextSender
 
   attr_reader :sender, :client
 
-  def initialize
+  def initialize client
     @sender = "441322721396"
-    @client = Twilio::REST::Client.new(ENV[:account_sid], ENV[:auth_token])
+    @client = client
   end
 
   def send_text to, body
-    @client.account.messages.create(
+    @client.messages.create(
       body: body,
       to: to,
       from: sender,
       via: client)
   end
+
 end
